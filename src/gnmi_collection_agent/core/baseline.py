@@ -56,8 +56,12 @@ class BaselineStore:
             return None
 
         std = pt.std()
+        # If the baseline window is flat, std becomes zero.
+        # In production, flat baselines do happen, for example quiet metrics or constant rates.
+        # We still want to catch spikes, so we apply a small floor to std.
         if std <= 1e-9:
-            return None
+            mean_abs = abs(pt.mean)
+            std = max(1.0, mean_abs * 0.05)
 
         z = (current_value - pt.mean) / std
         if abs(z) >= z_threshold:
