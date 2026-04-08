@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "capsule-gnmi-agent.fullname" . }}
+  labels:
+    {{- include "capsule-gnmi-agent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "capsule-gnmi-agent.selectorLabels" . | nindent 4 }}
