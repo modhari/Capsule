@@ -1,0 +1,6 @@
+Metadata-Version: 2.1
+Name: gnmi-collection-agent
+Version: 0.0.1
+Summary: Multivendor gNMI collection agent scaffold
+License: Proprietary
+Requires-Python: >=3.11
